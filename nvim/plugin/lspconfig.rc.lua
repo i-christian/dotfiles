@@ -2,7 +2,7 @@ local status, nvim_lsp = pcall(require, "lspconfig")
 if (not status) then return end
 
 local protocol = require('vim.lsp.protocol')
-
+local util = require "lspconfig/util"
 
 local on_attach = function(client, bufnr)
   -- format on save
@@ -49,12 +49,12 @@ nvim_lsp.ruff_lsp.setup{
 nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  single_file_support = true,
   filetypes = {"rust"},
+  root_dir = util.root_pattern("Cargo.toml"),
   settings = {
     ['rust-analyzer'] = {
-      diagnostics = {
-        enable = false;
+      cargo = {
+        allFeatures = true;
       }
     }
   }
