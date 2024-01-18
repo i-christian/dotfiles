@@ -1,5 +1,6 @@
 vim.cmd('autocmd!')
 
+vim.opt.clipboard = "unnamedplus"
 
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
@@ -48,5 +49,4 @@ vim.api.nvim_exec([[
 -- Add astericks in block comments
 vim.opt.formatoptions:append { 'r' }
 
--- Python PEP8
 
