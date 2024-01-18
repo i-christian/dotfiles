@@ -18,13 +18,44 @@ end
 -- TypeScript
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-  cmd = { "typescript-language-server", "--stdio" }
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" },
+  single_file_support = true,
 }
 
-nvim_lsp.pyright.setup{}
+-- Python 
+nvim_lsp.pyright.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"python"},
+  single_file_support = true,
+}
+
+nvim_lsp.ruff_lsp.setup{
+  on_attach = on_attach,
+  cmd = {"ruff-lsp"},
+  filetypes = {"python"},
+  --root_dir = see source file,
+  single_file_support = true,
+  init_options = {
+    settings = {
+      -- Any extra CLI arguments for `ruff` go here.
+      args = {},
+    }
+  }
+}
+
+-- Rust 
 nvim_lsp.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  single_file_support = true,
+  filetypes = {"rust"},
   settings = {
-    ['rust-analyzer'] = {}
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
   }
 }
