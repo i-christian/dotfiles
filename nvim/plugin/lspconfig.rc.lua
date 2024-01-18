@@ -21,3 +21,10 @@ nvim_lsp.tsserver.setup {
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" }
 }
+
+nvim_lsp.pyright.setup{}
+nvim_lsp.rust_analyzer.setup {
+  settings = {
+    ['rust-analyzer'] = {}
+  }
+}

@@ -48,3 +48,5 @@ vim.api.nvim_exec([[
 -- Add astericks in block comments
 vim.opt.formatoptions:append { 'r' }
 
+-- Python PEP8
+
