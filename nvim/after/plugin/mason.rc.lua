@@ -17,6 +17,7 @@ lspconfig.setup {
   ensure_installed = { 
     "lua_ls", 
     "tailwindcss",
+    "marksman",
     "pyright",
   },
 }

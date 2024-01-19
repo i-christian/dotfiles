@@ -26,9 +26,21 @@ nvim_lsp.tsserver.setup {
 -- Python 
 nvim_lsp.pyright.setup{
   on_attach = on_attach,
-  capabilities = capabilities,
   filetypes = {"python"},
   single_file_support = true,
+  settings = {
+    pyright = {
+      autoImportCompletion = true,
+    },
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = 'openFilesOnly',
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = 'off'
+      }
+    }
+  }
 }
 
 nvim_lsp.ruff_lsp.setup{
@@ -59,3 +71,14 @@ nvim_lsp.rust_analyzer.setup {
     }
   }
 }
+
+-- Markdown setup
+nvim_lsp.marksman.setup{
+  on_attach = on_attach,
+  cmd = {"marksman", "server"},
+  filetypes = {"markdown", "markdown.mdx", "markdown.md"},
+  root_dir = util.root_pattern(".git", ".markdown.mdx"),
+  single_file_support = true
+}
+
+
