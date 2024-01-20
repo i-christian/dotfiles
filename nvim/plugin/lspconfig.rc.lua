@@ -63,6 +63,9 @@ nvim_lsp.rust_analyzer.setup {
   capabilities = capabilities,
   filetypes = {"rust"},
   root_dir = util.root_pattern("Cargo.toml"),
+  cmd = {
+    "rustup", "run", "stable", "rust-analyzer",
+  },
   settings = {
     ['rust-analyzer'] = {
       cargo = {
