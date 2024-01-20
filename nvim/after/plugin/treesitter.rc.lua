@@ -19,7 +19,9 @@ ts.setup {
     "yaml",
     "css",
     "html",
-    "lua"
+    "lua",
+    "python",
+    "rust"
   },
   autotag = {
     enable = true,
