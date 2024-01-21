@@ -57,12 +57,12 @@ packer.startup(function(use)
 
   -- Rust setup
   use {
-    'rust-lang/rust.vim',
-    ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
-    end
+    'mrcjkb/rustaceanvim',
+    ft = 'rust'
   }
+
+  -- Debugging 
+  use 'mfussenegger/nvim-dap'
 
 
 end)

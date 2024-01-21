@@ -9,18 +9,26 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = vim.api.nvim_create_augroup("Format", { clear = true }),
-      buffer = bufnr,
-      callback = function() vim.lsp.buf.formatting_seq_sync() end
+    buffer = bufnr,
+    callback = function() vim.lsp.buf.formatting_seq_sync() end
     })
   end
+    
 end
 
 -- TypeScript
 nvim_lsp.tsserver.setup {
+  capabilities = capabilities,
   on_attach = on_attach,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" },
   single_file_support = true,
+  settings = {
+    completions = {
+      completeFunctionCalls = true
+    }
+  }
+
 }
 
 -- Python 
@@ -58,22 +66,22 @@ nvim_lsp.ruff_lsp.setup{
 }
 
 -- Rust 
-nvim_lsp.rust_analyzer.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = {"rust"},
-  root_dir = util.root_pattern("Cargo.toml"),
-  cmd = {
-    "rustup", "run", "stable", "rust-analyzer",
-  },
-  settings = {
-    ['rust-analyzer'] = {
-      cargo = {
-        allFeatures = true;
-      }
-    }
-  }
-}
+--nvim_lsp.rust_analyzer.setup {
+--  on_attach = on_attach,
+--  capabilities = capabilities,
+--  filetypes = {"rust"},
+--  root_dir = util.root_pattern("Cargo.toml"),
+--  cmd = {
+--   "rustup", "run", "stable", "rust-analyzer",
+--  },
+--  settings = {
+--    ['rust-analyzer'] = {
+--      cargo = {
+--        allFeatures = true;
+--      }
+--    }
+--  }
+--}
 
 -- Markdown setup
 nvim_lsp.marksman.setup{
