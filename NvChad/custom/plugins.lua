@@ -6,6 +6,7 @@ local plugins = {
         "lua-language-server",
         "rust-analyzer",
         "pyright",
+        "clangd",
         "marksman",
         "tailwindcss-language-server"
       },
@@ -79,6 +80,15 @@ local plugins = {
       require("core.utils").load_mappings("crates")
     end,
   },
+
+  {
+    'p00f/clangd_extensions.nvim',
+    ft = {"c"},
+    config = function()
+      require("clangd_extensions.inlay_hints").setup_autocmd()
+      require("clangd_extensions.inlay_hints").set_inlay_hints()
+    end
+  }
 }
 
 return plugins
