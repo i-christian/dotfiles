@@ -4,6 +4,15 @@ local lsp_config = require("lspconfig")
 local util = require("lspconfig/util")
 
 
+--C/C++ setup
+lsp_config.clangd.setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.signatureHelpProvider = false
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+}
+
 -- TypeScript
 lsp_config.tsserver.setup {
   capabilities = capabilities,
