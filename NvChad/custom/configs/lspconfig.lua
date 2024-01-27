@@ -7,6 +7,10 @@ local util = require("lspconfig/util")
 --C/C++ setup
 lsp_config.clangd.setup {
   on_attach = function(client, bufnr)
+     -- Clangd extensions
+     require("clangd_extensions.inlay_hints").setup_autocmd()
+     require("clangd_extensions.inlay_hints").set_inlay_hints()
+      -- lsp-status
     client.server_capabilities.signatureHelpProvider = false
     on_attach(client, bufnr)
   end,
