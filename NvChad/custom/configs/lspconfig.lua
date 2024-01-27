@@ -3,16 +3,21 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lsp_config = require("lspconfig")
 local util = require("lspconfig/util")
 
+-- Define the on_attach function outside of the setup calls
+local on_attach_custom = function(client, bufnr)
+  -- Disable hover in favor of Pyright
+  client.server_capabilities.hoverProvider = false
+  -- Call the general on_attach function
+  on_attach(client, bufnr)
+end
 
---C/C++ setup
+-- C/C++ setup
 lsp_config.clangd.setup {
   on_attach = function(client, bufnr)
-     -- Clangd extensions
-     require("clangd_extensions.inlay_hints").setup_autocmd()
-     require("clangd_extensions.inlay_hints").set_inlay_hints()
-      -- lsp-status
+    require("clangd_extensions.inlay_hints").setup_autocmd()
+    require("clangd_extensions.inlay_hints").set_inlay_hints()
     client.server_capabilities.signatureHelpProvider = false
-    on_attach(client, bufnr)
+    on_attach_custom(client, bufnr)  -- Call the custom on_attach function
   end,
   capabilities = capabilities,
 }
@@ -20,7 +25,7 @@ lsp_config.clangd.setup {
 -- TypeScript
 lsp_config.tsserver.setup {
   capabilities = capabilities,
-  on_attach = on_attach,
+  on_attach = on_attach_custom,  -- Use the custom on_attach function
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" },
   single_file_support = true,
@@ -29,14 +34,13 @@ lsp_config.tsserver.setup {
       completeFunctionCalls = true
     }
   }
-
 }
 
---tailwindCss
-lsp_config.tailwindcss.setup{}
+-- TailwindCss
+lsp_config.tailwindcss.setup {}
 
 -- Python 
-lsp_config.pyright.setup{
+lsp_config.pyright.setup {
   on_attach = on_attach,
   filetypes = {"python"},
   single_file_support = true,
@@ -55,22 +59,21 @@ lsp_config.pyright.setup{
   }
 }
 
-lsp_config.ruff_lsp.setup{
-  on_attach = on_attach,
+-- Ruff LSP
+lsp_config.ruff_lsp.setup {
+  on_attach = on_attach_custom,  -- Use the custom on_attach function
   cmd = {"ruff-lsp"},
   filetypes = {"python"},
-  --root_dir = see source file,
   single_file_support = true,
   init_options = {
     settings = {
-      -- Any extra CLI arguments for `ruff` go here.
-      args = {},
+      args = {}, -- Any extra CLI arguments for `ruff` go here.
     }
   }
 }
 
 -- Markdown setup
-lsp_config.marksman.setup{
+lsp_config.marksman.setup {
   on_attach = on_attach,
   cmd = {"marksman", "server"},
   filetypes = {"markdown", "markdown.mdx", "markdown.md"},
