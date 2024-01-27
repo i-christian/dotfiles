@@ -14,10 +14,12 @@ end
 -- C/C++ setup
 lsp_config.clangd.setup {
   on_attach = function(client, bufnr)
+    --clangd clangd_extensions
     require("clangd_extensions.inlay_hints").setup_autocmd()
     require("clangd_extensions.inlay_hints").set_inlay_hints()
+    --lsp-status
     client.server_capabilities.signatureHelpProvider = false
-    on_attach_custom(client, bufnr)  -- Call the custom on_attach function
+    on_attach(client, bufnr)
   end,
   capabilities = capabilities,
 }
@@ -25,7 +27,7 @@ lsp_config.clangd.setup {
 -- TypeScript
 lsp_config.tsserver.setup {
   capabilities = capabilities,
-  on_attach = on_attach_custom,  -- Use the custom on_attach function
+  on_attach = on_attach,
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" },
   single_file_support = true,
@@ -39,7 +41,7 @@ lsp_config.tsserver.setup {
 -- TailwindCss
 lsp_config.tailwindcss.setup {}
 
--- Python 
+-- Python
 lsp_config.pyright.setup {
   on_attach = on_attach,
   filetypes = {"python"},
