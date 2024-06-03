@@ -1,0 +1,41 @@
+theme = "night_owl"
+
+[editor]
+true-color = true
+line-number = "relative"
+mouse = true
+auto-completion=true
+auto-save=true
+auto-format=true
+text-width=80
+gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
+soft-wrap.enable = true
+soft-wrap.max-indent-retain=80
+
+[editor.statusline]
+left = ["mode", "spinner", "file-modification-indicator", "read-only-indicator"]
+center = ["file-name"]
+right = ["diagnostics", "register", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+enable=true
+auto-signature-help=true
+display-messages = true
+display-inlay-hints = true
+
+[editor.indent-guides]
+render = true
+#character = "┊"
+skip-levels = 1
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false

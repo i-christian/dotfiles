@@ -1,0 +1,188 @@
+# languages.toml
+
+[[language]]
+name = "markdown"
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+
+
+[[language]]
+name = "rust"
+scope = "source.rust"
+injection-regex = "rust"
+file-types = ["rs"]
+roots = ["Cargo.toml", "Cargo.lock"]
+shebangs = ["rust-script", "cargo"]
+formatter = { command = "rustfmt" }
+auto-format = true
+comment-tokens = ["//", "///", "//!"]
+block-comment-tokens = [
+  { start = "/*", end = "*/" },
+  { start = "/**", end = "*/" },
+  { start = "/*!", end = "*/" },
+]
+language-servers = [ "rust-analyzer" ]
+indent = { tab-width = 4, unit = "    " }
+persistent-diagnostic-sources = ["rustc", "clippy"]
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+
+[language.debugger]
+name = "lldb-dap"
+transport = "stdio"
+command = "lldb-dap"
+
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+completion = [ { name = "binary", completion = "filename" } ]
+args = { program = "{0}" }
+
+[[language.debugger.templates]]
+name = "binary (terminal)"
+request = "launch"
+completion = [ { name = "binary", completion = "filename" } ]
+args = { program = "{0}", runInTerminal = true }
+
+[[language.debugger.templates]]
+name = "attach"
+request = "attach"
+completion = [ "pid" ]
+args = { pid = "{0}" }
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config]
+inlayHints.bindingModeHints.enable = false
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+
+[[grammar]]
+name = "rust"
+source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "473634230435c18033384bebaa6d6a17c2523281" }
+
+
+[[language]]
+name = "c"
+language-servers =  ["clangd-14"]
+auto-format = true
+formatter = { command = "clang-format-14", args = ["-style=file"] }
+indent = { tab-width = 4, unit = "t" }
+
+[[language]]
+name = "cpp"
+language-servers =  ["clangd-14"]
+auto-format = true
+indent = { tab-width = 4, unit = "t" }
+formatter = { command = "clang-format-14", args = ["-style=file"] }
+comment-token = "//"
+[language-server.clangd-14]
+command = "clangd-14"
+args=["--compile-commands-dir=*/build/"] 
+
+[[language]]
+name = "bash"
+language-servers = ["bash-language-server"]
+formatter = { command = "shfmt" , args = ["-l","-w"]}
+auto-format = true
+[language-server.bash-language-server]
+command = "bash-language-server"
+
+[[language]]
+name = "python"
+language-servers = ["pylsp"]
+formatter = { command = "pycodestyle" }
+auto-format = true
+[language-server.pylsp.plugins]
+pycodestyle = {enabled = true, maxLineLength = 79}
+
+
+# Web development setup
+
+[language-server]
+emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+tailwindcss-ls = { command = "tailwindcss-language-server", args = ["--stdio"] }
+
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+codeActionsOnSave = { mode = "all", "source.fixAll.eslint" = true }
+format = { enable = true }
+nodePath = ""
+quiet = false
+rulesCustomizations = []
+run = "onType"
+validate = "on"
+experimental = {}
+problems = { shortenToSingleLine = false }
+
+
+[language-server.eslint.config.codeAction]
+disableRuleComment = { enable = true, location = "separateLine" }
+showDocumentation = { enable = false }
+
+[language-server.vscode-json-language-server.config]
+json = { validate = { enable = true }, format = { enable = true } }
+provideFormatter = true
+
+[language-server.vscode-css-language-server.config]
+css = { validate = { enable = true } }
+scss = { validate = { enable = true } }
+less = { validate = { enable = true } }
+provideFormatter = true
+
+[[language]]
+name = "typescript"
+language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
+# formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "typescript" ] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls","eslint", "emmet-ls" ]
+# formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = [ "typescript-language-server", "eslint", "emmet-ls" ]
+# formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "javascript" ] }
+auto-format = true
+
+[[language]]
+name = "jsx"
+language-servers = [ "tailwindcss-ls","typescript-language-server", "eslint", "emmet-ls" ]
+# formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "jsx" ] }
+auto-format = true
+
+[[language]]
+name = "json"
+# formatter = { command = "prettier", args = [ "--parser", "json" ] }
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "json" ] }
+auto-format = true
+
+[[language]]
+name = "html"
+language-servers = ["tailwindcss-ls" ,"vscode-html-language-server", "emmet-ls" ]
+formatter = { command = 'prettier', args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "emmet-ls", "tailwindcss-ls" ]
+formatter = { command = 'prettier', args = ["--parser", "css"] }
+auto-format = true
