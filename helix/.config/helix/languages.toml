@@ -1,8 +1,39 @@
 # languages.toml
+[language-server]
+emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
+tailwindcss-ls = { command = "tailwindcss-language-server", args = ["--stdio"] }
+marksman = { command = "marksman", args = ["server"] }
+
+
 
 [[language]]
 name = "markdown"
+scope = "source.md"
+injection-regex = "md|markdown"
+file-types = ["md", "markdown", "mkd", "mkdn", "mdwn", "mdown", "markdn", "mdtxt", "mdtext", "workbook", { glob = "PULLREQ_EDITMSG" }]
+roots = [".marksman.toml"]
+language-servers = [ "marksman"]
+indent = { tab-width = 2, unit = "  " }
+block-comment-tokens = { start = "<!--", end = "-->" }
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"]}
+
+[[language]]
+name = "git-commit"
+scope = "git.commitmsg"
+file-types = [{ glob = "COMMIT_EDITMSG" }]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+rulers = [51, 73]
+text-width = 72
+
+[[language]]
+name = "sql"
+scope = "source.sql"
+file-types = ["sql", "dsql"]
+comment-token = "--"
+block-comment-tokens = { start = "/*", end = "*/" }
+indent = { tab-width = 4, unit = "    " }
+injection-regex = "sql"
 
 
 [[language]]
@@ -70,11 +101,6 @@ pycodestyle = {enabled = true, maxLineLength = 79}
 
 
 # Web development setup
-
-[language-server]
-emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
-tailwindcss-ls = { command = "tailwindcss-language-server", args = ["--stdio"] }
-
 [language-server.eslint]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
@@ -154,7 +180,7 @@ language-id = "javascriptreact"
 file-types = ["jsx"]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "typescript-language-server" ]
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
 indent = { tab-width = 2, unit = "  " }
 grammar = "javascript"
 
@@ -178,7 +204,7 @@ language-id = "typescriptreact"
 file-types = ["tsx"]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "typescript-language-server" ]
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
 indent = { tab-width = 2, unit = "  " }
 
 
@@ -203,3 +229,14 @@ block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "vscode-css-language-server", "emmet-ls", "tailwindcss-ls" ]
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
+
+[[language]]
+name = "scss"
+scope = "source.scss"
+injection-regex = "scss"
+file-types = ["scss"]
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = [ "vscode-css-language-server" ]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
