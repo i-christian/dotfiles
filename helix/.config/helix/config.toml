@@ -2,6 +2,7 @@ theme = "night_owl"
 
 [editor]
 true-color = true
+color-modes = true
 line-number = "relative"
 mouse = true
 auto-completion=true
@@ -29,7 +30,7 @@ display-inlay-hints = true
 
 [editor.indent-guides]
 render = true
-#character = "┊"
+character = "┊"
 skip-levels = 1
 
 [editor.cursor-shape]
