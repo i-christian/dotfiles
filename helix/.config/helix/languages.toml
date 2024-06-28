@@ -91,13 +91,21 @@ auto-format = true
 [language-server.bash-language-server]
 command = "bash-language-server"
 
+
 [[language]]
 name = "python"
 language-servers = ["pylsp"]
 formatter = { command = "pycodestyle" }
 auto-format = true
+
 [language-server.pylsp.plugins]
-pycodestyle = {enabled = true, maxLineLength = 79}
+pycodestyle = { enabled = true, maxLineLength = 79 }
+
+# Comment tokens configuration
+comment-tokens = ["\"\"\"", "#"]
+block-comment-tokens = [
+  { start = "\"\"\"", end = "\"\"\"" }
+]
 
 
 # Web development setup
@@ -148,7 +156,7 @@ includeInlayFunctionLikeReturnTypeHints = false
 includeInlayFunctionParameterTypeHints = false
 includeInlayParameterNameHints = "all"
 includeInlayParameterNameHintsWhenArgumentMatchesName = false
-includeInlayPropertyDeclarationTypeHints = true
+includeInlayPropertyDeclarationTypeHints = false
 includeInlayVariableTypeHints = true
 
 [language-server.typescript-language-server.config.javascript.inlayHints]
@@ -157,8 +165,8 @@ includeInlayFunctionLikeReturnTypeHints = false
 includeInlayFunctionParameterTypeHints = false
 includeInlayParameterNameHints = "all"
 includeInlayParameterNameHintsWhenArgumentMatchesName = false
-includeInlayPropertyDeclarationTypeHints = true
-includeInlayVariableTypeHints = true
+includeInlayPropertyDeclarationTypeHints = false
+includeInlayVariableTypeHints = false
 
 [[language]]
 name = "javascript"
@@ -239,4 +247,3 @@ block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "vscode-css-language-server" ]
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
-
