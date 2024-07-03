@@ -1,3 +1,4 @@
+
 # languages.toml
 [language-server]
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
@@ -179,6 +180,7 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "typescript-language-server" ]
 indent = { tab-width = 2, unit = "  " }
+auto-format = true
 
 [[language]]
 name = "jsx"
@@ -191,6 +193,7 @@ block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
 indent = { tab-width = 2, unit = "  " }
 grammar = "javascript"
+auto-format = true 
 
 [[language]]
 name = "typescript"
@@ -203,6 +206,7 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "typescript-language-server" ]
 indent = { tab-width = 2, unit = "  " }
+auto-format = true
 
 [[language]]
 name = "tsx"
@@ -210,6 +214,7 @@ scope = "source.tsx"
 injection-regex = "(tsx)" # |typescript
 language-id = "typescriptreact"
 file-types = ["tsx"]
+auto-format = true
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
