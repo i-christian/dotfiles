@@ -1,4 +1,3 @@
-
 # languages.toml
 [language-server]
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
@@ -99,9 +98,9 @@ scope = "source.python"
 auto-format = true
 injection-regex = "(py|python)"
 language-id = "python"
-file-types = ["py", "pyi", "py3"]
+file-types = ["py"]
 shebangs = ["python"]
-roots = []
+roots = ["pyproject.toml", "setup.py", "Poetry.lock"]
 comment-token = ["#"]
 language-servers = ["pylsp"]
 indent = { tab-width = 4, unit = "    " }
@@ -109,7 +108,9 @@ formatter = { command = "black", args = ["--quiet","-"] }
 
 [language-server.pylsp.config.pylsp]
 plugins.black.enabled = true
-plugins.pylsp_mypy = {enabled = true, live_mode = true, strict = true}
+plugins.ruff.enabled = true
+plugins.ruff.lineLength = 79
+plugins.pylsp_mypy = {enabled = true, live_mode = true, strict = false}
 
 
 # Web development setup
