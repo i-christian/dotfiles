@@ -279,3 +279,19 @@ scope = "source.yaml.docker-compose"
 roots = ["docker-compose.yaml", "docker-compose.yml", "compose.yml", "compose.yaml"]
 language-servers = [ "docker-compose-langserver" ]
 file-types = [{ glob = "docker-compose.yaml" }, { glob = "docker-compose.yml" }, { glob = "compose.yml"}, {glob = "compose.yaml"}]
+
+
+[language-server.haskell-language-server]
+command = "haskell-language-server-wrapper"
+args = ["--lsp"] 
+
+[[language]]
+name = "haskell"
+scope = "source.haskell"
+injection-regex = "hs|haskell"
+file-types = ["hs", "hs-boot", "hsc"]
+roots = ["Setup.hs", "stack.yaml", "cabal.project"]
+comment-token = "--"
+block-comment-tokens = { start = "{-", end = "-}" }
+language-servers = [ "haskell-language-server" ]
+indent = { tab-width = 2, unit = "  " }
