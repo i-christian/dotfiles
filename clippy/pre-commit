@@ -1,43 +1,39 @@
 #!/usr/bin/env bash
 
-CACHE_FILE="/tmp/cargo_dir_cache"
-
 # Function to find the directory containing Cargo.toml
 find_cargo_dir() {
     local dir="$1"
-    
+
+    while [[ "$dir" != "/" ]]; do
+        if [[ -f "$dir/Cargo.toml" ]]; then
+            echo "$dir"
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+
     while IFS= read -r -d '' subdir; do
         if [[ -f "$subdir/Cargo.toml" ]]; then
             echo "$subdir"
             return
         fi
-    done < <(find "$dir" -type d -print0)
+    done < <(find "$1" -type d -print0)
 
     echo ""
 }
 
-# Try to use cached cargo_dir
-if [[ -f "$CACHE_FILE" ]]; then
-    cargo_dir=$(cat "$CACHE_FILE")
-else
-    cargo_dir=$(find_cargo_dir "$(pwd)")
-    if [[ -n "$cargo_dir" ]]; then
-        echo "$cargo_dir" > "$CACHE_FILE"
-    fi
-fi
+# Find the directory containing Cargo.toml starting from the current directory
+cargo_dir=$(find_cargo_dir "$(pwd)")
 
 if [[ -z "$cargo_dir" ]]; then
     echo "No Cargo.toml found. Commit rejected."
     exit 1
 fi
 
-# Change to the directory containing Cargo.toml
 cd "$cargo_dir" || { echo "Failed to change directory to $cargo_dir. Commit rejected."; exit 1; }
 
-# Run clippy and capture the output
 output=$(cargo clippy -- -D warnings 2>&1)
 
-# Check if Clippy has produced any warnings
 if [ $? -ne 0 ]; then
     echo "Clippy warnings found. Commit rejected."
     echo "$output"
