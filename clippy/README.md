@@ -85,9 +85,7 @@ Once the pre-commit hook is set up, it will automatically run every time you att
 - If there are no warnings, the commit will proceed as usual. 
 
 ### Notes
-This hook uses a caching mechanism to speed up the directory search for Cargo.toml, improving performance on subsequent commits.
-
-- You may need to run cargo clippy manually to fix any warnings before you can successfully commit changes.
+- You may need to run `cargo clippy --fix` manually to fix any warnings before you can successfully commit changes.
 
 - If you want to bypass this hook for a specific commit, you can use the --no-verify flag:
   ```
