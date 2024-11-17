@@ -146,7 +146,7 @@ provideFormatter = true
 
 [[language]]
 name = "json"
-formatter = { command = "dprint", args = [ "fmt", "--stdin", "json" ] }
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 auto-format = true
 
 
@@ -183,6 +183,7 @@ shebangs = ["node"]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "typescript-language-server" ]
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 indent = { tab-width = 2, unit = "  " }
 auto-format = true
 
@@ -195,6 +196,7 @@ file-types = ["jsx"]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 indent = { tab-width = 2, unit = "  " }
 grammar = "javascript"
 auto-format = true 
@@ -208,6 +210,7 @@ file-types = ["ts", "mts", "cts"]
 shebangs = ["deno", "bun", "ts-node"]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 language-servers = [ "typescript-language-server" ]
 indent = { tab-width = 2, unit = "  " }
 auto-format = true
@@ -221,6 +224,7 @@ file-types = ["tsx"]
 auto-format = true
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
+formatter = { command = "prettier", args = [ "--parser", "typescript" ] }
 language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
 indent = { tab-width = 2, unit = "  " }
 
