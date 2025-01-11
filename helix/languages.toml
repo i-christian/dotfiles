@@ -5,7 +5,6 @@ tailwindcss-ls = { command = "tailwindcss-language-server", args = ["--stdio"] }
 marksman = { command = "marksman", args = ["server"] }
 
 
-
 [[language]]
 name = "markdown"
 scope = "source.md"
@@ -93,6 +92,18 @@ auto-format = true
 formatter = { command = "clang-format-14", args = ["-style=file"] }
 indent = { tab-width = 4, unit = "t" }
 
+[[language]]
+name = "templ"
+auto-format = true
+scope = "source.templ"
+injection-regex = "templ"
+grammar = "templ"
+file-types = ["templ"]
+roots = ["go.sum"]
+comment-token = "//"
+indent = { tab-width = 4, unit = "\t" }
+language-servers =  ["templ", "tailwindcss-ls" ]
+formatter = { command = "templ" , args = ["fmt"] }
 
 [[language]]
 name = "bash"
@@ -246,7 +257,7 @@ scope = "text.html.basic"
 injection-regex = "html"
 file-types = ["html", "htm", "shtml", "xhtml", "xht", "jsp", "asp", "aspx", "jshtm", "volt", "rhtml"]
 block-comment-tokens = { start = "<!--", end = "-->" }
-language-servers = ["tailwindcss-ls" ,"vscode-html-language-server", "emmet-ls" ]
+language-servers = ["tailwindcss-ls" ,"vscode-html-language-server"]
 formatter = { command = 'prettier', args = ["--parser", "html"] }
 auto-format = true
 indent = { tab-width = 2, unit = "  " }
@@ -258,7 +269,7 @@ injection-regex = "css"
 file-types = ["css", "scss"]
 indent = { tab-width = 2, unit = "  " }
 block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "vscode-css-language-server", "emmet-ls", "tailwindcss-ls" ]
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls" ]
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
 
