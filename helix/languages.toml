@@ -1,8 +1,18 @@
 # languages.toml
 [language-server]
 emmet-ls = { command = "emmet-ls", args = [ "--stdio" ]}
-tailwindcss-ls = { command = "tailwindcss-language-server", args = ["--stdio"] }
 marksman = { command = "marksman", args = ["server"] }
+
+[[language]]
+name = "tailwindcss-ls"
+scope = "source.css"
+file-types = ["templ","css","html","jsx","tsx"]
+language-servers = ["tailwindcss-language-server"]
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio" ]
+config = { userLanguages = { templ = "html" } }
 
 
 [[language]]
